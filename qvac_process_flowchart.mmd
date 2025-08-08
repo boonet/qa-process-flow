@@ -1,0 +1,108 @@
+---
+title: QVAC Quality Assurance Process Flow
+---
+flowchart TD
+    %% Phase 1: Planning and Strategy
+    A[Feature/Epic Proposed] --> B[QA Team Reviews Requirements]
+    B --> C{Requirements Clear & Testable?}
+    C -->|No| D[Provide Feedback to Product & Dev Teams]
+    D --> B
+    C -->|Yes| E[Create Test Strategy & Plan within Testpad or similar]
+    E --> F[Define Test Scope, Types & Resources]
+    F --> G[Write Detailed Test Cases]
+    G --> H[Link Test Cases to Asana Ticket]
+    H --> I{Definition of Done Agreed?}
+    I -->|No| J[Hold DoD Definition Meeting]
+    J --> I
+    I -->|Yes| K[Move to Development Phase]
+
+    %% Phase 2: Development and Testing
+    K --> L[Ticket Moved to 'In Progress']
+    L --> M[Developer Begins Work]
+    M --> N[Write Unit & Integration Tests]
+    N --> O[Commit Code & Create PR]
+    O --> P[CI/CD Pipeline Runs Tests]
+    P --> Q{PR Reviewed & Approved?}
+    Q -->|No| R[Address Feedback & Update Code]
+    R --> O
+    Q -->|Yes| S[Merge PR & Deploy to Staging]
+    S --> T[Developer Quality Gate Check]
+    
+    %% Developer Quality Gate Details
+    T --> T1{Happy Path Working?}
+    T1 -->|No| R
+    T1 -->|Yes| T2{All Tests Passed?}
+    T2 -->|No| R
+    T2 -->|Yes| T3{Artifacts Published?}
+    T3 -->|No| T4[Publish Artifacts & Links]
+    T4 --> T3
+    T3 -->|Yes| U[Move to 'Ready for QA']
+    
+    U --> V[QA Team Begins Testing]
+    V --> W[Move to 'In QA' Swimlane]
+    W --> X[Execute Test Cases & Exploratory Testing]
+    X --> Y{Definition of Done Met?}
+    Y -->|No| Z[Create Bug Report & Link to Ticket]
+    Z --> AA[Move Back to 'In Progress']
+    AA --> M
+    Y -->|Yes| BB[QA Lead Signs Off]
+    BB --> CC[Move to 'Complete' Swimlane]
+
+    %% Phase 3: Release and Maintenance
+    CC --> DD[Release Scheduled]
+    DD --> EE[Run Full Regression Test Suite]
+    EE --> FF[QA Lead Reviews Project Health Dashboard]
+    FF --> GG{Quality Meets Release Criteria?}
+    GG -->|No| HH[Issue 'No-Go' Warning]
+    HH --> II[Address Critical Issues]
+    II --> GG
+    GG -->|Yes| JJ[Formal 'Go' Recommendation]
+    JJ --> KK[Release Proceeds]
+    KK --> LL[Monitor Production]
+    LL --> MM[Hold Retrospective]
+
+    %% Support Channel Management
+    NN[Issue Reported via Support Channel] --> OO[Create Ticket in QA Support Project]
+    OO --> PP[Weekly QA Triage Review]
+    PP --> QQ[Ensure Clear Reproducible Steps]
+    QQ --> RR{Issue Priority?}
+    RR -->|High Priority P1/P2| SS[Immediate Escalation]
+    SS --> TT[Add to Current Sprint]
+    TT --> M
+    RR -->|Low Priority P3/P4| UU[Add to Product Backlog]
+    UU --> VV[Review in Sprint Planning]
+    VV --> WW{Include in Future Sprint?}
+    WW -->|Yes| M
+    WW -->|No| UU
+
+    %% Styling with improved text contrast and distinct Quality Gates
+    classDef phase1 fill:#b3e5fc,stroke:#01579b,stroke-width:2px,color:#000000
+    classDef phase2 fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000000
+    classDef phase3 fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000000
+    classDef support fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000000
+    classDef decision fill:#fff9c4,stroke:#f57f17,stroke-width:2px,color:#000000
+    
+    %% Quality Gates with distinct styling
+    classDef requirementsGate fill:#ff9800,stroke:#e65100,stroke-width:4px,color:#ffffff
+    classDef devQualityGate fill:#f44336,stroke:#c62828,stroke-width:4px,color:#ffffff
+    classDef qaValidationGate fill:#9c27b0,stroke:#6a1b9a,stroke-width:4px,color:#ffffff
+    classDef releaseGate fill:#2196f3,stroke:#1565c0,stroke-width:4px,color:#ffffff
+
+    %% Apply styles with distinct Quality Gates
+    class A,B,D,E,F,G,H,J,K phase1
+    class L,M,N,O,P,R,S,T4,U,V,W,X,Z,AA,BB,CC phase2
+    class DD,EE,FF,HH,II,JJ,KK,LL,MM phase3
+    class NN,OO,PP,QQ,SS,TT,UU,VV support
+    class Q,RR,WW decision
+    
+    %% Quality Gates highlighted
+    class C,I requirementsGate
+    class T,T1,T2,T3 devQualityGate
+    class Y qaValidationGate
+    class GG releaseGate
+
+    %% Quality Gates Legend:
+    %% 🟠 Orange (Requirements Gate): Requirements clarity and DoD agreement
+    %% 🔴 Red (Developer Quality Gate): Developer validation checkpoints
+    %% 🟣 Purple (QA Validation Gate): QA sign-off and DoD verification
+    %% 🔵 Blue (Release Gate): Release readiness decision
