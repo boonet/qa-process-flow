@@ -33,12 +33,14 @@ The QVAC Quality Assurance Process is a comprehensive three-phase methodology en
 **Key Activities**:
 - Unit and integration test development
 - Continuous integration pipeline execution
+- Automated security scans on PR (SAST and secret scanning)
 - Code review and approval process
 - Developer Quality Gate validation
 - Comprehensive QA testing
 
 **Key Deliverables**:
 - Passing unit and integration tests
+- Security scan reports (SAST/Secrets)
 - Approved pull requests
 - Environment deployments
 - QA test execution results
@@ -46,7 +48,7 @@ The QVAC Quality Assurance Process is a comprehensive three-phase methodology en
 
 **Quality Gates**:
 - ✅ Developer Quality Gate (Happy path, tests passed, artifacts published)
-- ✅ Automated testing pipeline success
+- ✅ Automated testing pipeline success (includes security scans)
 - ✅ QA validation against Definition of Done
 
 ---
@@ -126,6 +128,7 @@ The QVAC Quality Assurance Process is a comprehensive three-phase methodology en
 - [ ] Happy path functionality working
 - [ ] All automated tests passing
 - [ ] Code coverage thresholds met
+- [ ] Security scans passed (no High/Critical SAST or leaked secrets)
 - [ ] Artifacts and links published in Asana
 - [ ] Environment deployment successful
 
@@ -135,6 +138,7 @@ The QVAC Quality Assurance Process is a comprehensive three-phase methodology en
 - [ ] Exploratory testing completed
 - [ ] Definition of Done criteria met
 - [ ] No critical or high-priority bugs
+- [ ] Any security scan exceptions documented and approved
 
 ### Release Readiness Gate
 - [ ] Full regression test suite passed
@@ -149,7 +153,7 @@ The QVAC Quality Assurance Process is a comprehensive three-phase methodology en
 
 ### Project Management
 - **Asana**: Primary project tracking with swimlane workflow
-  - In Progress → Ready for QA → In QA → Complete
+  - ToDO → In Progress → Ready for QA → In QA → Complete
 
 ### Testing Tools
 - **Test Management System**: Test case repository and execution tracking
@@ -158,7 +162,7 @@ The QVAC Quality Assurance Process is a comprehensive three-phase methodology en
 
 ### Quality Monitoring
 - **Code Quality**: Static analysis and code coverage tools
-- **Security**: SAST/DAST scanning tools
+- **Security**: SAST/DAST and secret scanning tools (e.g., Checkmarx, GitHub CodeQL, Semgrep, Trufflehog)
 - **Performance**: APM and monitoring solutions
 - **Error Tracking**: Exception monitoring and alerting
 
@@ -196,7 +200,8 @@ The QVAC Quality Assurance Process is a comprehensive three-phase methodology en
 - [ ] Release notes prepared
 
 ### Security and Compliance
-- [ ] Security scan completed
+- [ ] SAST and secret scanning executed and reviewed
+- [ ] No High/Critical security findings or approved exceptions
 - [ ] Compliance requirements met
 - [ ] Data privacy considerations addressed
 - [ ] Accessibility standards met (if applicable)
@@ -208,7 +213,6 @@ The QVAC Quality Assurance Process is a comprehensive three-phase methodology en
 ### Quality Metrics
 - Test coverage percentage (target: 80%+)
 - Test pass rate (target: 95%+)
-- Defect density (defects per unit of code)
 - Defect escape rate (production issues)
 
 ### Process Metrics
@@ -225,21 +229,3 @@ The QVAC Quality Assurance Process is a comprehensive three-phase methodology en
 
 ---
 
-## Emergency Escalation Process
-
-### P1 Critical Issues
-1. **Immediate**: QA Engineer identifies and reports
-2. **15 minutes**: QA Lead notified and assesses
-3. **30 minutes**: Development Lead engaged
-4. **1 hour**: CTO notified for critical system issues
-5. **Ongoing**: Regular status updates every 30 minutes
-
-### Communication Channels
-- **Immediate**: Slack/Teams direct message
-- **Escalation**: Phone call + email
-- **Status Updates**: Dedicated incident channel
-- **Customer Communication**: Prepared templates for customer-facing issues
-
----
-
-*Quick Reference Version 1.0 - August 8, 2025*

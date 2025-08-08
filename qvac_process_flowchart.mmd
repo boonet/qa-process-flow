@@ -22,7 +22,8 @@ flowchart TD
     M --> N[Write Unit & Integration Tests]
     N --> O[Commit Code & Create PR]
     O --> P[CI/CD Pipeline Runs Tests]
-    P --> Q{PR Reviewed & Approved?}
+    P --> Psec[Run Security Scan on PR - SAST and Secrets]
+    Psec --> Q{PR Reviewed & Approved?}
     Q -->|No| R[Address Feedback & Update Code]
     R --> O
     Q -->|Yes| S[Merge PR & Deploy to Staging]
@@ -90,7 +91,7 @@ flowchart TD
 
     %% Apply styles with distinct Quality Gates
     class A,B,D,E,F,G,H,J,K phase1
-    class L,M,N,O,P,R,S,T4,U,V,W,X,Z,AA,BB,CC phase2
+    class L,M,N,O,P,Psec,R,S,T4,U,V,W,X,Z,AA,BB,CC phase2
     class DD,EE,FF,HH,II,JJ,KK,LL,MM phase3
     class NN,OO,PP,QQ,SS,TT,UU,VV support
     class Q,RR,WW decision
